@@ -17,36 +17,85 @@ The system is organized into three layers that separate what is permanently your
 ### Layer diagram
 
 ```
-pm-brain-os/
-│
-├── core/                        # Permanent. Never changes between roles.
-│   ├── voice.md                 # Communication style, tone, output calibration
-│   ├── career_context.md        # Level, expertise, working style — tells the AI who it's working with
-│   ├── frameworks.md            # Preferred PM frameworks and decision lenses
-│   └── templates/               # Canonical PM document templates
-│       ├── prd_template.md
-│       ├── stakeholder_update_template.md
-│       ├── roadmap_review_template.md
-│       └── research_synthesis_template.md
-│
-├── company/                     # Swappable. Replace entirely when switching roles.
-│   ├── company_context.md       # Mission, strategy, competitive landscape, cultural norms
-│   ├── goals.md                 # Current OKRs and quarterly focus
-│   ├── stakeholders.md          # Stakeholder map, influence, communication preferences
-│   └── org_structure.md        # Team structure, decision rights
-│
-├── context-library/             # Per-initiative. Accumulates over time in a role.
-│   ├── research/                # Curated research syntheses (not raw data)
-│   └── decisions/               # Decision log — one file per significant decision
-│
-└── agents/                      # Workflow agents — trigger prompts for specific PM tasks
-    ├── prd_agent.md
-    ├── research_synthesis_agent.md
-    ├── stakeholder_update_agent.md
-    ├── roadmap_review_agent.md
-    ├── metrics_callout_agent.md
-    ├── conflict_resolution_agent.md
-    └── meeting_actions_agent.md
+┌─────────────────────────────────────────────────────────────────────┐
+│                        YOU (The PM)                                 │
+│         L7/L8 · AI-Native · Amazon · Expedia · AI Startups         │
+└─────────────────────────────┬───────────────────────────────────────┘
+                              │  Your brief, inputs, feedback
+                              ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                    CLAUDE.md — ENTRY POINT                          │
+│  Master orchestrator. Loads context in order, routes to the right   │
+│  agent, enforces output standards across every workflow.            │
+│                                                                     │
+│  On every session start, Claude Code loads this file first.         │
+│  Everything below runs through it.                                  │
+└──────┬──────────────────────┬───────────────────────┬──────────────┘
+       │ [1–3] Core Layer     │ [4] Template          │ [5] Company Layer
+       ▼                      ▼                       ▼
+┌─────────────────┐  ┌─────────────────┐  ┌──────────────────────────┐
+│   core/         │  │  core/          │  │  company/                │
+│                 │  │  templates/     │  │                          │
+│  voice.md       │  │                 │  │  company_context.md      │
+│  [Loaded 1st]   │  │  prd_template   │  │  goals.md                │
+│  Tone, structure│  │  stakeholder_   │  │  stakeholders.md         │
+│  calibration    │  │  update_        │  │  org_structure.md        │
+│                 │  │  template       │  │                          │
+│  career_        │  │  roadmap_       │  │  Swappable per role.     │
+│  context.md     │  │  review_        │  │  Replace this folder     │
+│  [Loaded 2nd]   │  │  template       │  │  when you switch jobs.   │
+│  L7-L8 profile  │  │  research_      │  │  Core Layer untouched.   │
+│                 │  │  synthesis_     │  └──────────────────────────┘
+│  frameworks.md  │  │  template       │
+│  [Loaded 3rd]   │  │                 │
+│  RICE · JTBD    │  │  One loaded per │
+│  Pyramid · DACI │  │  workflow type  │
+└─────────────────┘  └─────────────────┘
+                              │
+                              │ [6] Context Library (selective)
+                              ▼
+              ┌───────────────────────────────┐
+              │   context-library/            │
+              │                               │
+              │   research/   decisions/      │
+              │                               │
+              │   Loaded selectively —        │
+              │   only what the task needs.   │
+              │   Files > 12 months old are   │
+              │   flagged before loading.     │
+              └───────────────┬───────────────┘
+                              │
+                              │ CLAUDE.md classifies intent → routes
+                              ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                         agents/                                     │
+│                                                                     │
+│  prd_agent.md              roadmap_review_agent.md                  │
+│  research_synthesis_agent.md   metrics_callout_agent.md             │
+│  stakeholder_update_agent.md   conflict_resolution_agent.md         │
+│                            meeting_actions_agent.md                 │
+│                                                                     │
+│  CLAUDE.md routes here automatically based on your intent.         │
+│  Ambiguous input → you choose. No match → inline or new agent.     │
+└──────────────────────────────┬──────────────────────────────────────┘
+                               │  Output
+                               ▼
+              ┌────────────────────────────────┐
+              │  Output standards (enforced    │
+              │  by CLAUDE.md on every run):   │
+              │                                │
+              │  ✓ Conclusions first           │
+              │  ✓ Tradeoffs section required  │
+              │  ✓ L7-L8 bar — no filler       │
+              │  ✓ ~80K token budget enforced  │
+              └────────────────┬───────────────┘
+                               │  Calibration feedback
+                               ▼
+              ┌────────────────────────────────┐
+              │  core/voice.md updated         │
+              │  One sentence. Immediately.    │
+              │  Confirmed inline.             │
+              └────────────────────────────────┘
 ```
 
 ---
@@ -95,7 +144,7 @@ The Context Library is the knowledge layer for current work. It holds curated re
 
 ## Workflow Agents
 
-Each agent in `agents/` is a triggered workflow — a pre-configured prompt template that loads the right context files and runs a specific PM task. Agents are not chatbots. They are structured operations.
+Each agent in `agents/` is a triggered workflow — a pre-configured prompt template that loads the right context files and runs a specific PM task. Agents are not chatbots. They are structured operations. `CLAUDE.md` routes to them automatically based on intent classification; you do not need to invoke them by name.
 
 | Agent | Task | Key context loaded |
 |-------|------|--------------------|
@@ -120,7 +169,7 @@ Claude claude-opus-4-6 is chosen for:
 - **Large context window** — enough headroom to load multiple context files simultaneously alongside raw research or meeting notes
 - **Instruction fidelity** — follows structured, multi-part prompts reliably without losing constraints mid-output
 
-The system is designed to work with Claude Code's file-reading capabilities directly: agents instruct Claude Code to load specific files by path before executing the task. No external orchestration layer is needed.
+The system is designed to work with Claude Code's file-reading capabilities directly. `CLAUDE.md` acts as the master orchestrator — loaded automatically by Claude Code on every session start, it controls context load order, agent routing, and output standards without any manual configuration. No external orchestration layer is needed.
 
 ---
 
