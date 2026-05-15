@@ -268,6 +268,15 @@ This is the memory mechanism. The system does not rely on conversation history b
 
 **Single-model dependency.** The system is currently designed around Claude claude-opus-4-6. A model version change or provider shift requires reviewing agent trigger prompts and potentially recalibrating `voice.md` for any behavioral differences in output style.
 
+
+ ### The gap worth knowing and the reasons for this gap
+
+  Right now there's no memory.md inside the PM Brain OS repo itself — no single file that says "here's what this system has learned and when." The calibration is distributed (voice.md, decisions/, research/)
+  which is intentional for portability, but it means there's no single audit trail of how the system has evolved.
+
+  If you wanted one, a core/calibration_log.md would be the right place — a running record of what changed in voice.md and why, dated. That would make the system's learning legible to a cold session or a new
+  collaborator without having to read the diff history.
+
 ---
 
 ## Getting started
