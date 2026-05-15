@@ -1,12 +1,12 @@
 # PM Brain OS
 
-A portable, AI-native operating system for senior product managers. Built on Claude Code. Travels with you across every role.
+A portable, AI-native operating system for AI product leaders. Built on Claude Code. Travels with you across every role.
 
 ---
 
 ## What this is
 
-PM Brain OS is a structured thinking environment — not a template library, not a wiki, not a prompt collection. It is an operating system for how a senior PM thinks, communicates, and makes decisions, with Claude Code as the execution layer.
+PM Brain OS is a structured thinking environment — not a template library, not a wiki, not a prompt collection. It is an operating system for how a PM leader thinks, communicates, and makes decisions, with Claude Code as the execution layer.
 
 The system is organized into three layers that separate what is permanently yours from what is specific to your current company. Switch roles: update the Company Layer, swap the Context Library, leave the Core Layer untouched. Your voice, your frameworks, your templates — they go with you.
 
