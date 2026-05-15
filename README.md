@@ -4,11 +4,11 @@ A portable, AI-native operating system for AI product leaders. Built on Claude C
 
 ---
 
-## What this is
+## What this is?
 
-PM Brain OS is a structured thinking environment — not a template library, not a wiki, not a prompt collection. It is an operating system for how a PM leader thinks, communicates, and makes decisions, with Claude Code as the execution layer.
+PM Brain OS is a structured thinking environment — not a template library, not a wiki, not a prompt collection. It is an operating system for how a PM leader thinks, communicates, and makes decisions, with Claude Code as the agentic orchestrator and execution layer.
 
-The system is organized into three layers that separate what is permanently yours from what is specific to your current company. Switch roles: update the Company Layer, swap the Context Library, leave the Core Layer untouched. Your voice, your frameworks, your templates — they go with you.
+**PORTABILITY PRINCIPLE** - The system is organized into three layers that separate what is permanently yours from what is specific to your current company. Switch roles: update the Company Layer, swap the Context Library, leave the Core Layer untouched. Your voice, your frameworks, your templates — they go with you.
 
 ---
 
@@ -97,6 +97,11 @@ The system is organized into three layers that separate what is permanently your
               │  Confirmed inline.             │
               └────────────────────────────────┘
 ```
+"Core Layer" is Portable
+
+"Company Layer" is Swappable
+
+"Project Layer" is by initiative
 
 ---
 
@@ -110,7 +115,7 @@ The Core Layer encodes the PM as a professional. It does not change between comp
 
 **`career_context.md`** tells Claude what level of PM it is working with. At L7-L8, this means: don't explain basic concepts, don't over-hedge, write as if addressing a peer who will push back on anything that isn't sharp. This file also captures domain expertise (AI-native products, FAANG-scale execution, early-stage startups) so outputs are calibrated to the domains the PM actually operates in.
 
-**`frameworks.md`** stores the PM's preferred analytical lenses: RICE for prioritization, Jobs-to-be-Done for user research, Pyramid Principle for communication, evaluation-first development for AI features. These are applied consistently across all outputs unless a specific project overrides them.
+**`frameworks.md`** stores the PM's preferred analytical lenses: RICE for prioritization, Jobs-to-be-Done for user research, Pyramid Principle for communication, evaluation-first development and AI product flywheel for AI features. These are applied consistently across all outputs unless a specific project overrides them.
 
 **`templates/`** holds the canonical document formats the PM returns to every time — PRD, stakeholder update, roadmap review, research synthesis. Each template is opinionated, not blank. They embed the structural choices the PM has already made (conclusions first, explicit tradeoffs section, open questions with owners) so the PM is not re-making those decisions for every document.
 
@@ -157,6 +162,8 @@ Each agent in `agents/` is a triggered workflow — a pre-configured prompt temp
 | `meeting_actions_agent.md` | Process meeting notes into actions | Core + Company |
 
 Each agent file contains: the purpose of the workflow, the exact list of context files to load, a copy-paste trigger prompt with labeled inputs, and the expected output format.
+
+AI models for Agentic workflows are chosen to balance token efficiency and output accuracy
 
 ---
 
@@ -213,6 +220,14 @@ This is the portability contract: **the system knows you; you just tell it where
 ## Feedback loop and calibration
 
 PM Brain OS is not static. Every time the PM gives feedback on an output, it is a calibration signal.
+╔═════════════════════════════════════════════════════════════════════╗
+║                      FEEDBACK LOOP                                  ║
+╠═════════════════════════════════════════════════════════════════════╣
+║  "Too hedged"        →  voice.md Feedback Log updated              ║
+║  "Missed constraint" →  frameworks.md updated                      ║
+║  "Wrong exec tone"   →  stakeholder_map.md updated                 ║
+║                                                                     ║
+║  System gets sharper every session. This is the learning loop.     ║
 
 **The loop:**
 
@@ -227,7 +242,7 @@ This is the memory mechanism. The system does not rely on conversation history b
 
 ## Critique: what it does well and where it can improve
 
-### What works
+### What works well!!
 
 **Portability without configuration overhead.** Swapping the Company Layer takes minutes, not hours. The PM does not have to re-teach the system their style or preferences. The Core Layer carries it.
 
@@ -239,7 +254,7 @@ This is the memory mechanism. The system does not rely on conversation history b
 
 **Agent specificity beats chat generality.** Each workflow agent loads only what is relevant and runs a specific operation. This produces sharper outputs than asking a general-purpose chat session to "help me write a PRD".
 
-### What can improve
+### What can improve??
 
 **Context budget management is manual.** The PM decides what to load in each session. There is no automated relevance scoring or dynamic context selection. For PMs managing large context libraries, this becomes a judgment call every session. A future improvement would be an index layer that recommends which research or decision files are most relevant to the current task.
 
