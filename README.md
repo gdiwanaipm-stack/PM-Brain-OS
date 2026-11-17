@@ -259,6 +259,8 @@ This is the memory mechanism. The system does not rely on conversation history b
 **Context budget management is manual.** The PM decides what to load in each session. There is no automated relevance scoring or dynamic context selection. For PMs managing large context libraries, this becomes a judgment call every session. A future improvement would be an index layer that recommends which research or decision files are most relevant to the current task.
 I ask the agent to summarize if the conversations goes beyond 15, open a new session paste the summarized version and then continue. This has helped me prevent context rot.
 
+Being able to see how full the context window is and being able to see how the model performs at different percentages helps me hone my judgment on where I want the context window to be for different tasks.
+
 **The feedback loop requires PM discipline.** Calibration only happens if the PM takes the step of writing feedback back into `voice.md` or `frameworks.md`. This is not automatic. A PM under time pressure will skip it. The system would benefit from a lightweight post-session prompt: "Any feedback on this output? One sentence to update voice.md?"
 
 **No automatic freshness management.** Research and company context files can go stale without a signal. A 14-month-old competitive landscape file loaded without review will produce confident but outdated analysis. The system needs a convention (currently: check dates manually) that could be improved with a lightweight staleness flag or review prompt.
